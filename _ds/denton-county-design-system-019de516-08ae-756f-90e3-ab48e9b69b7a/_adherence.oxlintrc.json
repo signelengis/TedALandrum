@@ -1,0 +1,146 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": []
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Share Tech Mono|Rajdhani))/i]",
+        "message": "Font not provided by the design system. Available: Share Tech Mono, Rajdhani."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {},
+    "tokens": [
+      "--bg",
+      "--bg-overlay",
+      "--bg2",
+      "--bg3",
+      "--border",
+      "--border2",
+      "--cyan",
+      "--cyan2",
+      "--dur-base",
+      "--dur-fast",
+      "--ease",
+      "--fs-body",
+      "--fs-display",
+      "--fs-h1",
+      "--fs-h2",
+      "--fs-h3",
+      "--fs-meta",
+      "--fs-tag",
+      "--glow-cyan",
+      "--glow-cyan-soft",
+      "--glow-green",
+      "--glow-orange",
+      "--glow-pink",
+      "--glow-pink-soft",
+      "--glow-red",
+      "--green",
+      "--head",
+      "--mono",
+      "--orange",
+      "--pink",
+      "--r-md",
+      "--r-sharp",
+      "--r-sm",
+      "--red",
+      "--space-1",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--text",
+      "--text-bright",
+      "--text2",
+      "--tracking-mono",
+      "--tracking-wide"
+    ],
+    "tokenKinds": {
+      "--bg": "color",
+      "--bg2": "color",
+      "--bg3": "color",
+      "--bg-overlay": "color",
+      "--cyan": "color",
+      "--cyan2": "color",
+      "--pink": "color",
+      "--green": "color",
+      "--red": "color",
+      "--orange": "color",
+      "--text": "font",
+      "--text2": "color",
+      "--text-bright": "font",
+      "--border": "color",
+      "--border2": "color",
+      "--mono": "other",
+      "--head": "other",
+      "--fs-display": "spacing",
+      "--fs-h1": "spacing",
+      "--fs-h2": "spacing",
+      "--fs-h3": "spacing",
+      "--fs-body": "spacing",
+      "--fs-meta": "spacing",
+      "--fs-tag": "spacing",
+      "--tracking-mono": "font",
+      "--tracking-wide": "font",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--r-sharp": "spacing",
+      "--r-sm": "spacing",
+      "--r-md": "spacing",
+      "--glow-cyan": "shadow",
+      "--glow-cyan-soft": "shadow",
+      "--glow-pink": "shadow",
+      "--glow-pink-soft": "shadow",
+      "--glow-green": "shadow",
+      "--glow-red": "shadow",
+      "--glow-orange": "shadow",
+      "--dur-fast": "other",
+      "--dur-base": "other",
+      "--ease": "other"
+    },
+    "fontFamilies": [
+      "Rajdhani",
+      "Share Tech Mono"
+    ]
+  }
+}

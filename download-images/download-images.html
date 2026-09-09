@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Download site images</title></head>
+<body style="font:15px/1.6 system-ui,sans-serif;max-width:640px;margin:48px auto;padding:0 20px;color:#0b2340">
+<h1 style="font-size:22px">Download the site images</h1>
+<p>Click the button. Your browser will ask once to allow multiple downloads &mdash; say yes.
+Files save to your Downloads folder with the right names; move them into an <code>images/</code> folder in your repo.</p>
+<p style="color:#4a5966;font-size:14px">The Find a Grave portrait (00) is not included &mdash; that one has to be saved by hand.</p>
+<button id="go" style="font:600 15px system-ui;padding:12px 24px;background:#0b2340;color:#fff;border:0;cursor:pointer">Download all</button>
+<pre id="log" style="margin-top:24px;font-size:13px;color:#4a5966;white-space:pre-wrap"></pre>
+<script>
+const files = [
+  ["00-ted-landrum-1943.jpg", "https://images.findagrave.com/photos/2021/35/91809299_7062a35d-a2a2-4430-8afa-ff5273c67de2.jpeg"],
+  ["01-n2s3-kaydet.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/Boeing_Stearman_N2S-3_Kaydet_%E2%80%9807539_-_143%E2%80%99_(N63590)_(33211843492).jpg"],
+  ["02-ad4n-skyraider.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/Skyraider_AD-4N.jpg"],
+  ["03-ad4w-skyraider-vc11.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/AD-4W_Skyraider_of_VC-11_Det.I_in_flight_off_Korea,_circa_in_1952.jpg"],
+  ["04-f9f2-panther.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/Grumman_F9F-2_Panther_of_VF-112_in_flight,_circa_in_1951_(1564-78).jpg"],
+  ["05-f9f8-cougar.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/Grumman_F9F-8_Cougar_of_VF-53_in_flight,_in_1956.jpg"],
+  ["06-f2h2-banshee.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/McDonnell_F2H-2_Banshee_in_flight_(colour).jpg"],
+  ["07-f3h2n-demon.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/McDonnell_F3H-2N_Demon_in_flight_in_1956.jpg"],
+  ["08-f4b-phantom.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/McDonnell_F-4B_Phantom_II_of_VF-32_in_flight,_circa_in_1966.jpg"],
+  ["09-a4e-skyhawk.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/Douglas_A-4E_Skyhawk_of_VA-164_in_flight_over_Vietnam_on_21_November_1967_(6430101).jpg"],
+  ["10-twin-beech-18.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/Beech_18_-_Little_Gransden_2019.jpg"],
+  ["11-jet-commander-1121.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/Aero_Commander_1121_Jet_Commander,_Private_JP5962515.jpg"],
+  ["12-challenger-604.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/OH-WII_CL604_pvt_(7950005490).jpg"],
+  ["13-astra-1125.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/IAI_1125_Astra.jpg"],
+  ["14-falcon-20.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/Dassault_Falcon_20E_Belgium_-_Air_Force,_LUX_Luxembourg_(Findel),_Luxembourg_PP1278001849.jpg"],
+  ["15-f4u4-corsair.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/Vought_F4U-4_Corsair_of_VF-33_in_flight,_circa_in_1950.jpg"],
+  ["16-fh1-phantom.jpg", "https://commons.wikimedia.org/wiki/Special:FilePath/FH-1_Phantom_of_VMF-122_at_NAS_Memphis_1949.jpg"]
+];
+const log = document.getElementById('log');
+document.getElementById('go').onclick = async () => {
+  for (const [name, url] of files) {
+    if (name.startsWith('00-')) { log.textContent += name + ' - skipped (save by hand)\n'; continue; }
+    try {
+      const r = await fetch(url);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(await r.blob());
+      a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      log.textContent += name + ' - ok\n';
+      await new Promise(r => setTimeout(r, 700));
+    } catch (e) { log.textContent += name + ' - FAILED (' + e.message + ')\n'; }
+  }
+  log.textContent += '\nFinished.';
+};
+</script>
+</body></html>
